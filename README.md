@@ -55,7 +55,7 @@ const math = require('./math');
 const result = math.sum(1, 2);
 ```
 
-위의 `math` 모듈처럼 사용자 정의 모듈을 생성하여 내보내고, 가져다 쓸 수 있다.
+위의 `math` 모듈처럼 사용자 정의 모듈을 생성하여 내보내고, 가져다 쓸 수 있다. 그 외에도 그때 그때 필요한 라이브러리를 설치하여 서드파티 모듈을 활용할 수도 있다.
 
 **참고:**
 - [JavaScript 표준을 위한 움직임: CommonJS와 AMD](https://d2.naver.com/helloworld/12864)
