@@ -59,3 +59,27 @@ const result = math.sum(1, 2);
 
 **참고:**
 - [JavaScript 표준을 위한 움직임: CommonJS와 AMD](https://d2.naver.com/helloworld/12864)
+
+## 비동기
+자바스크립트에는 비동기 코드가 많고, Node.js 역시 마찬가지로 비동기 코드가 많다. 애초에 Node.js는 기본적으로 비동기로 동작한다. 파일을 읽을 때에도 비동기로 동작하며, 네트워크 통신을 할 때에도 비동기로 통신해야 한다. 그렇기 때문에 Node.js를 사용함에 있어서 **비동기 처리에 익숙해질 필요가 있다.**
+
+대표적인 예시로 Node.js에는 `readFile`과 `readFileSync`라는 메서드가 있다. 목적만 놓고 보면 동일한 메서드인데, 전자는 비동기로, 후자는 동기로 동작하게 된다.
+
+```javascript
+const fs = require('fs');
+
+// 동기
+const data = fs.readFileSync('./data.txt', 'utf-8');
+console.log(data); // This is data file
+
+// 비동기
+const data = fs.readFile('./data.txt', 'utf-8', function(err, result) {
+  console.log(result); // This is data file
+})
+```
+
+위의 경우에서 `readFileSync`는 파일을 다 읽을 때까지 후속 코드의 실행을 블록킹하게 되지만, `readFile`은 비동기적으로 동작하기 때문에 후속 코드의 실행을 블록킹하지 않고, 파일을 다 읽었다는 이벤트가 발생했을 때 콜백함수가 실행된다. 만일 이때, 파일을 제대로 못 읽었다거나 그외 어떤 에러가 있다면 콜백함수의 첫 번째 파라미터인 `err`에 값이 담기게 되고, 에러가 없다면 두 번째 파라미터에 값이 담긴다.
+
+
+**참고:**
+- [블로킹과 논블로킹 살펴보기](https://nodejs.org/ko/docs/guides/blocking-vs-non-blocking/)
