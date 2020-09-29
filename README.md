@@ -24,3 +24,38 @@
 이때, 이벤트 루프를 거쳐 즉시 응답될 수 있는 이벤트가 있는 반면에 비교적 긴 시간이 소요되는 이벤트도 있다. 이러한 것들까지 이벤트 루프에서 실행하려 하면 블로킹이 걸리기 때문에 이럴 때에는 다른 쓰레드(worker)에게 이벤트를 위임하게 된다. 이벤트를 위임받은 worker는 이벤트 루프와는 별개로 이벤트를 처리한 뒤 결과만 이벤트 큐에 다시 돌려준다.
 
 ## 모듈 시스템
+브라우저에서는 모듈 시스템을 구현하기 위해 window context를 사용하거나 RequireJS와 같은 의존성 로더를 사용한다. 반면에 Node.js에서는 **파일형태로 모듈을 관리할 수 있는 CommonJS** 로 구현한다. 다시 말해 Node.js는 서버측에서 사용되는 자바스크립트 환경인 만큼 OS를 비롯해 로컬의 여러 파일에도 접근을 할 수 있는데, 그러한 특성을 살려 보다 효율적으로 모듈을 관리하기 위해 CommonJS 스펙을 활용하여 파일형태로 모듈을 관리한다고 할 수 있다.
+
+```javascript
+// browser
+window.myModule = function() {
+  return 'myModule';
+}
+
+myModule(); // "myModule"
+
+// Node.js
+const http = require('http');
+http.createServer();
+```
+
+위의 `http`와 같이 Node.js에서 제공되는 모듈을 가져다 쓸 수도 있고,
+
+```javascript
+// math.js
+function sum(a, b) {
+  return a + b;
+}
+module.exports = {
+  sum: sum
+};
+
+// index.js
+const math = require('./math');
+const result = math.sum(1, 2);
+```
+
+위의 `math` 모듈처럼 사용자 정의 모듈을 생성하여 내보내고, 가져다 쓸 수 있다.
+
+**참고:**
+- [JavaScript 표준을 위한 움직임: CommonJS와 AMD](https://d2.naver.com/helloworld/12864)
