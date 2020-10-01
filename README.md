@@ -123,6 +123,32 @@ server.listen(port, hostname, () => {
 
 ## 라우팅(Routing)
 
+라우팅 처리를 하지 않으면, 모든 요청에 대해 동일한 내용으로만 응답을 하게 된다. 따라서 미리 어떤 경로(path)에서 어떤 응답을 보내줄 지 정해야 하는데, 이를 라우팅이라 한다.
+클라이언트로부터의 요청은 `request`에 객체 형태로 담기게 되며, 이 객체에는 다양한 데이터가 포함되어 있는데, 이 중 `url`도 있기 때문에 이를 통하여 아래와 같이 요청에 따른 응답을 분기할 수 있다.
+
+```javascript
+// index.js
+
+const server = http.createServer((req, res) => {
+  if (req.url === '/') {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('Hello Node');
+  } else if (req.url === '/users') {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('User List');
+  } else {
+    res.statusCode = 404;
+    res.end('Not Found');
+  }
+});
+```
+
+위와 같은 조건으로 서버를 실행했을 때, `curl -X GET '127.0.0.1:3000'`에는 'Hello Node'가, `curl -X GET '127.0.0.1:3000/user'`에는 'Not Found'가 출력되는 것을 볼 수 있다. 특정한 요청에 특정한 응답을 전달해야 하는 API의 기본적인 원리가 이와 같다고 할 수 있다. 그러나, 보통의 경우 적지 않은 API가 필요한데 일일이 위와 같이 분기하는 것은 상당히 비효율적이다. 그래서 보다 효율적이고 간단하게 라우팅 처리를 할 수 있는 도구를 이용해야 하는 대표적으로 Express.js가 있다.
+
+## Express.js
+
 **참고:**
 
 - [Really, really basic routing in Node.js with Express](https://www.freecodecamp.org/news/really-really-basic-routing-in-nodejs-with-express-d7cad5e3f5d5/)
