@@ -87,9 +87,9 @@ const data = fs.readFile('./data.txt', 'utf-8', function (err, result) {
 
 - [블로킹과 논블로킹 살펴보기](https://nodejs.org/ko/docs/guides/blocking-vs-non-blocking/)
 
-## 서버 띄우기
+## 서버 실행하기
 
-[Node.js 공식문서](https://nodejs.org/en/about/)에서 서버를 띄울 수 있는 예시 코드가 있다.
+[Node.js 공식문서](https://nodejs.org/en/about/)에 서버를 실행할 수 있는 예시 코드가 있다.
 
 ```javascript
 // index.js
