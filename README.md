@@ -106,7 +106,7 @@ const server = http.createServer((req, res) => {
   // 서버에 요청이 들어왔을 때 동작하는 코드
   res.statusCode = 200; // 요청에 대한 응답 상태코드
   res.setHeader('Content-Type', 'text/plain'); // 응답 데이터의 종류와 형태 정보를 헤더에 담음
-  res.end('Hello Node'); // 요청에 대해 출력되는 결과값
+  res.end('Hello Node'); // 요청에 의해 'Hello Node'라는 문자열을 클라이언트로 보냄
 });
 
 // listen 메서드는 서버를 요청 대기상태로 만들어주는 함수다. 여기서 대기상태란, 서버가 클라이언트로부터 요청을 받기 위해 종료되지 않고 대기 중인 상태를 말한다.
