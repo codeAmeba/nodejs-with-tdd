@@ -161,3 +161,25 @@ Express.js는 Node.js로 만들어진 웹 프레임워크다. Express.js에는 �
 - [Express.js](https://expressjs.com/ko/)
 - [Really, really basic routing in Node.js with Express](https://www.freecodecamp.org/news/really-really-basic-routing-in-nodejs-with-express-d7cad5e3f5d5/)
 - [Express 라우팅 - Express.js](https://expressjs.com/ko/guide/routing.html)
+
+## 어플리케이션
+
+Express.js의 인스턴스(객체)를 어플리케이션이라고 한다.
+
+```javascript
+const express = require('express');
+const app = express();
+```
+
+위와 같이 Express.js 모듈을 가져와 `app`이라는 변수에 `express` 객체를 할당하는데, 이때 `app`이 어플리케이션이라는 개념이다. 이렇게 만들어진 어플리케이션을 통하여 **서버에 필요한 기능인 미들웨어를 추가** 할 수 있고, **라우팅 설정** 도 할 수 있으며,
+
+```javascript
+const express = require('express');
+const app = express();
+
+app.listen(3000, function () {
+  console.log('server is running');
+});
+```
+
+위와 같이 `listen` 메서드를 쓸 수 있기 때문에 **서버를 요청 대기 상태로 만들 수** 도 있다.
