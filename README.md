@@ -93,21 +93,30 @@ const data = fs.readFile('./data.txt', 'utf-8', function (err, result) {
 
 ```javascript
 // index.js
+
+//  Node.js의 기본 모듈 중 http라는 모듈을 가져와서 변수에 할당
 const http = require('http');
 
+// hostname과 port에 각각 원하는 값을 할당
 const hostname = '127.0.0.1';
 const port = 3000;
 
+// http 모듈의 메서드 중 createServer 메서드를 사용. request와 response를 파라미터로 받는 콜백함수를 파라미터로 넣은 값을 server라는 변수에 할당
 const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World');
+  // 서버에 요청이 들어왔을 때 동작하는 코드
+  res.statusCode = 200; // 요청에 대한 응답 상태코드
+  res.setHeader('Content-Type', 'text/plain'); // 응답 데이터의 종류와 형태 정보를 헤더에 담음
+  res.end('Hello Node'); // 요청에 대해 출력되는 결과값
 });
 
+// listen 메서드는 서버를 요청 대기상태로 만들어주는 함수다. 여기서 대기상태란, 서버가 클라이언트로부터 요청을 받기 위해 종료되지 않고 대기 중인 상태를 말한다.
+// listen 메서드는 port, hostname, 그리고 listen 메서드가 완료되면 호출되는 콜백함수까지 총 3개의 파라미터를 받는다.
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}/`);
 });
 ```
 
-이를 통해 간단히 서버를 실행하고 Hello World를 확인할 수 있다. 서버를 띄우기 위해서는 터미널에서 `node index.js`를 입력한 뒤 브라우저를 열어 `localhost:3000`으로 접속해보면 확인할 수 있다. 또는, 다른 터미널을 하나 더 열어 `curl -X GET 'localhost:3000'`을 입력하면 브라우저에 출력된 내용을 터미널에서 확인 가능하다.
+이를 통해 간단히 서버를 실행하고 Hello Node를 확인할 수 있다. 서버를 띄우기 위해서는 터미널에서 `node index.js`를 입력한 뒤 브라우저를 열어 `localhost:3000`으로 접속해보면 확인할 수 있다. 또는, 다른 터미널을 하나 더 열어 `curl -X GET 'localhost:3000'`을 입력하면 브라우저에 출력된 내용을 터미널에서 확인 가능하다.
 그러나 매번 위와 같이 변경 사항이 있을 때마다 서버를 재실행 하는 것은 번거롭기 때문에 변경 사항이 자동으로 적용되도록 `nodemon`을 설치하는 것을 추천한다.
+
+> `127.0.0.1`은 `localhost`와 동일하다.
