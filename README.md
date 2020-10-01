@@ -149,7 +149,15 @@ const server = http.createServer((req, res) => {
 
 ## Express.js
 
+Express.js는 Node.js로 만들어진 웹 프레임워크다. Express.js에는 대표적으로 다섯가지 개념이 있다.
+
+- **어플리케이션**
+- **미들웨어** : 함수들의 배열이라고 할 수 있으며, Express.js에 어떠한 기능을 추가할 때 미들웨어의 형태를 통해 추가한다.
+- **라우팅** : 접속 경로에 따른 응답을 체계적으로 나눌 수 있다.
+- **요청객체, 응답객체** : 기본적으로 http 모듈 안에서는 request(요청객체)와 response(응답객체)가 있는데, Express.js에서는 이를 한 번 Wrapper로 감싸 더욱 편리하게 쓸 수 있도록 메서드 형태로 제공한다.
+
 **참고:**
 
+- [Express.js](https://expressjs.com/ko/)
 - [Really, really basic routing in Node.js with Express](https://www.freecodecamp.org/news/really-really-basic-routing-in-nodejs-with-express-d7cad5e3f5d5/)
 - [Express 라우팅 - Express.js](https://expressjs.com/ko/guide/routing.html)
