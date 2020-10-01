@@ -120,3 +120,10 @@ server.listen(port, hostname, () => {
 그러나 매번 위와 같이 변경 사항이 있을 때마다 서버를 재실행 하는 것은 번거롭기 때문에 변경 사항이 자동으로 적용되도록 `nodemon`을 설치하는 것을 추천한다.
 
 > `127.0.0.1`은 `localhost`와 동일하다.
+
+## 라우팅(Routing)
+
+**참고:**
+
+- [Really, really basic routing in Node.js with Express](https://www.freecodecamp.org/news/really-really-basic-routing-in-nodejs-with-express-d7cad5e3f5d5/)
+- [Express 라우팅 - Express.js](https://expressjs.com/ko/guide/routing.html)
