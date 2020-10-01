@@ -1,10 +1,14 @@
-const fs = require('fs');
+const http = require('http');
 
-// 동기
-// const data = fs.readFileSync('./data.txt', 'utf-8');
-// console.log(data); // This is data file
-// 비동기
-const data = fs.readFile('./data.txt', 'utf-8', function(err, result) {
-  console.log(result); // This is data file
-})
+const hostname = '127.0.0.1';
+const port = 3000;
 
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello World');
+});
+
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
