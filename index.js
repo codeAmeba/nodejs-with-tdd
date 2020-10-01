@@ -1,6 +1,13 @@
 const express = require('express');
 const app = express();
 
-app.listen(3000, function () {
-  console.log('server is running');
+function logger(req, res, next) {
+  console.log('I am logger');
+  next();
+}
+
+app.use(logger);
+
+app.listen(3000, () => {
+  console.log(`Example app listening at http://localhost:3000`);
 });

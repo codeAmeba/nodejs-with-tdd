@@ -17,7 +17,7 @@
 
 ## 이벤트 기반의 비동기 I/O 프레임워크
 
-![](https://miro.medium.com/max/982/1*xm_WajiPlaOeJWcqgJb1xQ.png)
+![node process](https://miro.medium.com/max/982/1*xm_WajiPlaOeJWcqgJb1xQ.png)
 
 클라이언트에서 요청(request)을 보내면, Node.js는 이 요청을 이벤트로 만들어 이벤트 큐(Queue)에 넣는다. 그리고 이벤트 루프(Event Loop)는 이벤트 큐의 이벤트를 하나씩 꺼내 실행하는데, 이벤트 루프는 싱글스레드이기 때문에 한 번에 하나의 이벤트만 실행하며, 실행된 이벤트는 클라이언트로 응답(response)의 형태로 전달된다.
 
@@ -159,8 +159,6 @@ Express.js는 Node.js로 만들어진 웹 프레임워크다. Express.js에는 �
 **참고:**
 
 - [Express.js](https://expressjs.com/ko/)
-- [Really, really basic routing in Node.js with Express](https://www.freecodecamp.org/news/really-really-basic-routing-in-nodejs-with-express-d7cad5e3f5d5/)
-- [Express 라우팅 - Express.js](https://expressjs.com/ko/guide/routing.html)
 
 ## 어플리케이션
 
@@ -176,10 +174,48 @@ const app = express();
 ```javascript
 const express = require('express');
 const app = express();
+const port = 3000;
 
-app.listen(3000, function () {
-  console.log('server is running');
+app.get('/', (req, res) => {
+  res.send('Hello Express');
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
 });
 ```
 
 위와 같이 `listen` 메서드를 쓸 수 있기 때문에 **서버를 요청 대기 상태로 만들 수** 도 있다.
+
+## 미들웨어(Middleware)
+
+미들웨어는 함수들의 연속이다. Express에 기능을 추가해야 할 때에는 이 미들웨어의 형태로 추가할 수 있다.
+
+### 미들웨어 예시
+
+```javascript
+const express = require('express');
+const app = express();
+
+function logger(req, res, next) {
+  console.log('I am logger');
+  next();
+}
+
+app.use(logger);
+
+app.listen(3000, () => {
+  console.log(`Example app listening at http://localhost:3000`);
+});
+```
+
+미들웨어의 인터페이스는 정해져있다. 위의 예시에서 생성한 `logger`라는 임의의 미들웨어를 보면 총 세 개의 파라미터를 받고 있는 것을 볼 수 있는데, 이는 미들웨어의 정해진 인터페이스다. 첫 번째 파라미터는 요청(request)객체, 두 번째 파라미터는 응답(response)객체 그리고 세 번째 파라미터로 `next`를 받으며, 미들웨어는 해야 할 일을 마친 뒤에는 `next()`를 호출해야 한다. 그래야 다음 동작을 수행할 수 있다.
+
+### 미들웨어의 실행 순서
+
+## Express 라우팅
+
+**참고:**
+
+- [Really, really basic routing in Node.js with Express](https://www.freecodecamp.org/news/really-really-basic-routing-in-nodejs-with-express-d7cad5e3f5d5/)
+- [Express 라우팅 - Express.js](https://expressjs.com/ko/guide/routing.html)
