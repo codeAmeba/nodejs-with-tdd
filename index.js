@@ -1,18 +1,18 @@
 const express = require('express');
 const app = express();
 
-function logger(req, res, next) {
-  console.log('I am logger');
+function commonMiddleware(req, res, next) {
+  console.log('common middleware');
+  next(new Error('what the error!'));
+}
+
+function errorMiddleware(err, req, res, next) {
+  console.log(err.message);
   next();
 }
 
-function logger2(req, res, next) {
-  console.log('I am logger2');
-  next();
-}
-
-app.use(logger2);
-app.use(logger);
+app.use(commonMiddleware);
+app.use(errorMiddleware);
 
 app.listen(3000, () => {
   console.log(`Example app listening at http://localhost:3000`);

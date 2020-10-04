@@ -265,6 +265,36 @@ app.listen(3000, () => {
 
 서버 콘솔에는 `I am logger2`가 먼저 출력되고 이후에 `I am logger`가 출력되는 것을 확인할 수 있다.
 
+### 에러 미들웨어
+
+미들웨어는 **일반 미들웨어** 와 **에러 미들웨어** 로 구분할 수 있으며, 앞에서 만들어봤던 미들웨어와 npm을 통해 내려 받아 사용하는 서드파티 미들웨어는 모두 일반 미들웨어에 속한다.
+
+일반 미들웨어는 `req, res, next` 세 개의 파라미터를 받지만, 에러 미들웨어는 `err, req, res, next` 네 개의 파라미터를 받는다.
+
+```javascript
+const express = require('express');
+const app = express();
+
+function commonMiddleware(req, res, next) {
+  console.log('common middleware');
+  next(new Error('what the error!')); // <- 인위적으로 에러객체 전달
+}
+
+function errorMiddleware(err, req, res, next) {
+  console.log(err.message); // <- 전달 받은 에러객체의 메시지 출력 what the error!
+  next(); // <- 만약 에러가 처리되지 않으면 next에 err을 담아 다음으로 넘길 수 있음
+}
+
+app.use(commonMiddleware);
+app.use(errorMiddleware);
+
+app.listen(3000, () => {
+  console.log(`Example app listening at http://localhost:3000`);
+});
+```
+
+위와 같이 일반 미들웨어에서 에러가 발생한 경우, 에러 미들웨어는 에러객체를 파라미터로 받아 처리하게 된다.
+
 ## Express 라우팅
 
 **참고:**
