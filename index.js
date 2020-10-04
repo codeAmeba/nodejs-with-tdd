@@ -6,6 +6,12 @@ function logger(req, res, next) {
   next();
 }
 
+function logger2(req, res, next) {
+  console.log('I am logger2');
+  next();
+}
+
+app.use(logger2);
 app.use(logger);
 
 app.listen(3000, () => {

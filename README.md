@@ -215,6 +215,56 @@ app.listen(3000, () => {
 
 ### 미들웨어의 실행 순서
 
+```javascript
+const express = require('express');
+const app = express();
+
+function logger(req, res, next) {
+  console.log('I am logger');
+  // next();
+}
+
+function logger2(req, res, next) {
+  console.log('I am logger2'); // -> 출력되지 않음
+  next();
+}
+
+app.use(logger);
+app.use(logger2);
+
+app.listen(3000, () => {
+  console.log(`Example app listening at http://localhost:3000`);
+});
+```
+
+만약 위와 같이 `logger` 내부에서 `next()`를 호출하지 않는다면, 서버에 오청 시 서버 콘솔에는 `I am logger`만 출력되고, 이후의 함수는 무시된다.
+
+또한, 미들웨어는 `use()` 메서드를 통해 호출한 순서에 따라 실행된다. 따라서 아래와 같이 두 미들웨어의 호출 순서를 바꾼다면,
+
+```javascript
+const express = require('express');
+const app = express();
+
+function logger(req, res, next) {
+  console.log('I am logger');
+  next();
+}
+
+function logger2(req, res, next) {
+  console.log('I am logger2');
+  next();
+}
+
+app.use(logger2);
+app.use(logger);
+
+app.listen(3000, () => {
+  console.log(`Example app listening at http://localhost:3000`);
+});
+```
+
+서버 콘솔에는 `I am logger2`가 먼저 출력되고 이후에 `I am logger`가 출력되는 것을 확인할 수 있다.
+
 ## Express 라우팅
 
 **참고:**
