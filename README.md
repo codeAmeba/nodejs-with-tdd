@@ -344,3 +344,9 @@ server.listen(port, hostname, () => {
 
 - [Really, really basic routing in Node.js with Express](https://www.freecodecamp.org/news/really-really-basic-routing-in-nodejs-with-express-d7cad5e3f5d5/)
 - [Express 라우팅](https://expressjs.com/ko/guide/routing.html)
+
+## 요청객체와 응답객체
+
+요청객체는 **클라이언트에서 서버로 들어온 요청 정보를 담은 객체** 를 말하며, Express.js에서의 요청객체는 http 모듈의 request 객체를 래핑(Wrapping)한 것이다. 이를 통해 `req.params()`, `req.query()`, `req.body()` 등의 Express.js의 메서드를 손쉽게 활용 가능하다.
+
+응답객체는 **서버에서 클라이언트로 전달하는 응답 정보를 담은 객체** 를 말하며, 마찬가지로 http 모듈의 response 객체를 래핑한 것이다. `res.send()`, `res.status()`, `res.json()` 등의 메서드가 주로 사용된다.
