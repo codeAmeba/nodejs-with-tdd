@@ -445,3 +445,19 @@ app.listen(3000, () => {
   { "id": 3, "name": "Mike" }
 ]
 ```
+
+## 테스트 주도 개발(TDD)
+
+실제 동작하는 코드를 작성하기 전에 앞서 요구사항이 충분히 갖추어졌는지 확인할 수 있는 테스트 코드를 먼저 작성하는 방식의 개발 방법론이다. 테스트 코드 작성 이후에 작성되는 구현 코드는 당연히 테스트에 통과할 수 있도록 작성해야만 하며, 테스트에 통과하는 스펙을 갖춘 뒤에는 리펙토링을 반복하여 코드의 효율성과 가독성을 발전시키는 것에 의의가 있다.
+
+### Node.js에서의 TDD
+
+Node.js에서는 테스트를 위해 다음과 같은 세 가지 라이브러리를 주로 사용한다.
+
+- [Mocha](https://mochajs.org/)
+- [Should](https://shouldjs.github.io/)
+- [superTest](https://github.com/visionmedia/supertest)
+
+**참고:**
+
+- [Node.js로 만든 API 테스트(supertest) | 김정환 블로그](https://jeonghwan-kim.github.io/dev/2020/05/25/supertest.html)
