@@ -213,6 +213,10 @@ app.listen(3000, () => {
 
 미들웨어의 인터페이스는 정해져있다. 위의 예시에서 생성한 `logger`라는 임의의 미들웨어를 보면 총 세 개의 파라미터를 받고 있는 것을 볼 수 있는데, 이는 미들웨어의 정해진 인터페이스다. 첫 번째 파라미터는 요청(request)객체, 두 번째 파라미터는 응답(response)객체 그리고 세 번째 파라미터로 `next`를 받으며, 미들웨어는 해야 할 일을 마친 뒤에는 `next()`를 호출해야 한다. 그래야 다음 동작을 수행할 수 있다.
 
+**참고:**
+
+- [Express 미들웨어 작성](https://expressjs.com/ko/guide/writing-middleware.html)
+
 ### 미들웨어의 실행 순서
 
 ```javascript
@@ -295,9 +299,48 @@ app.listen(3000, () => {
 
 위와 같이 일반 미들웨어에서 에러가 발생한 경우, 에러 미들웨어는 에러객체를 파라미터로 받아 처리하게 된다.
 
-## Express 라우팅
+**참고:**
+
+- [미들웨어 사용](https://expressjs.com/ko/guide/using-middleware.html)
+- [에러 처리](https://expressjs.com/ko/guide/error-handling.html)
+
+## 라우팅(with Express)
+
+어떤 요청이 왔을 때 해당 요청에 맞는 응답을 해주는 것을 라우팅(Routing)이라고 한다. 앞에서 Node.js만 사용하여 구현했던 라우팅 코드를 다시 한 번 살펴보자.
+
+```javascript
+// without Express
+
+const http = require('http');
+
+const hostname = '127.0.0.1';
+const port = 3000;
+
+const server = http.createServer((req, res) => {
+  if (req.url === '/') {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('Hello Node');
+  } else if (req.url === '/users') {
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('User List');
+  } else {
+    res.statusCode = 404;
+    res.end('Not Found');
+  }
+});
+
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
+```
+
+위와 같이 요청에 따른 조건들을 일일이 분기해줘야 하기 때문에 코드가 장황해지는 것이 불가피하다. 따라서 보다 간결하게 라우팅 처리를 하기 위해 Express.js를 활용한다. 정확하게는 Express.js의 어플리케이션 객체의 `get()`과 `post()` 등의 메서드다.
+
+나아가 라우팅을 더욱 구조적으로 하고 싶다면, 전용 `Router` 클래스를 활용하면 좋다.
 
 **참고:**
 
 - [Really, really basic routing in Node.js with Express](https://www.freecodecamp.org/news/really-really-basic-routing-in-nodejs-with-express-d7cad5e3f5d5/)
-- [Express 라우팅 - Express.js](https://expressjs.com/ko/guide/routing.html)
+- [Express 라우팅](https://expressjs.com/ko/guide/routing.html)
