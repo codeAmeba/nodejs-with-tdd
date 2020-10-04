@@ -409,3 +409,39 @@ app.listen(3000, () => {
 **참고:**
 
 - [HTTP status code](https://developer.mozilla.org/ko/docs/Web/HTTP/Status)
+
+## 첫 API
+
+`/users`를 경로로 갖고 `GET` 메서드를 통해 사용자 목록을 조회하는 API를 만들어보자.
+
+```javascript
+const express = require('express');
+const app = express();
+const morgan = require('morgan');
+
+const users = [
+  { id: 1, name: 'Tom' },
+  { id: 2, name: 'Jane' },
+  { id: 3, name: 'Mike' },
+];
+
+app.use(morgan('dev'));
+
+app.get('/users', (req, res) => {
+  res.json(users);
+});
+
+app.listen(3000, () => {
+  console.log('server start');
+});
+```
+
+위와 같이 users라는 mock data를 만들어 응답을 해주도록 설정하고 요청을 해보면 다음과 같이 users가 json 형태로 돌아오는 것을 확인할 수 있다.
+
+```json
+[
+  { "id": 1, "name": "Tom" },
+  { "id": 2, "name": "Jane" },
+  { "id": 3, "name": "Mike" }
+]
+```
