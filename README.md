@@ -401,3 +401,11 @@ app.listen(3000, () => {
 ```
 
 위와 같이 `/users` 요청에 대한 `get()` 라우팅이 존재할 때, `curl -X GET 'localhost:3000/users`를 통해 요청을 하면, `this is users list` 문자열이 응답으로 들어오는 것을 확인할 수 있다.
+
+## 응답 형식
+
+![status codes](https://amudabadmus.files.wordpress.com/2017/04/restful-web-services-with-spring-mvc-28-638.jpg)
+
+**참고:**
+
+- [HTTP status code](https://developer.mozilla.org/ko/docs/Web/HTTP/Status)
