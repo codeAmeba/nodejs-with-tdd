@@ -373,3 +373,31 @@ app.listen(3000, () => {
   console.log('server start');
 });
 ```
+
+## 요청 형식
+
+모든 자원은 명사로 식별하며, HTTP 경로를 통해 자원을 요청한다. HTTP 메서드는 서버 자원에 대한 행동을 나타내며 동사로 표현한다.
+
+### HTTP Method
+
+- GET: 자원을 조회
+- POST: 자원을 생성
+- PUT: 자원을 갱신
+- DELETE: 자원을 삭제
+
+위의 메서드들은 모두 Express.js 어플리케이션의 메서드로 구현되어 있다.
+
+```javascript
+const express = require('express');
+const app = express();
+
+app.get('/users', (req, res) => {
+  res.send('this is users list');
+});
+
+app.listen(3000, () => {
+  console.log('server start');
+});
+```
+
+위와 같이 `/users` 요청에 대한 `get()` 라우팅이 존재할 때, `curl -X GET 'localhost:3000/users`를 통해 요청을 하면, `this is users list` 문자열이 응답으로 들어오는 것을 확인할 수 있다.
