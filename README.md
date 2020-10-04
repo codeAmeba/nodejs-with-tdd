@@ -461,3 +461,51 @@ Node.js에서는 테스트를 위해 다음과 같은 세 가지 라이브러리
 **참고:**
 
 - [Node.js로 만든 API 테스트(supertest) | 김정환 블로그](https://jeonghwan-kim.github.io/dev/2020/05/25/supertest.html)
+
+## Mocha
+
+모카(mocha)는 테스트 코드를 실행해주는 **테스트 러너(Test Runner)** 이고, **테스트 수트(Test Suite)** 는 테스트 환경을 의미하며 모카에서는 `describe()`로 구현한다. **테스트 케이스(Test Case)** 는 실제 테스트를 말하며 모카에서는 `it()`으로 구현한다.
+
+### 환경 구성
+
+`npm install mocha --save-dev`로 모카를 설치한 뒤 손쉽게 테스트를 진행하기 위해 `package.json`의 스크립트를 아래와 같이 수정하는 것이 좋다.
+
+```json
+  "scripts": {
+    "test": "mocha"
+  },
+```
+
+### 테스트 코드의 구성
+
+모카를 활용한 테스트 코드의 기본적인 구성은 아래와 같다.
+
+```javascript
+const assert = require('assert');
+
+describe('Array', () => {
+  describe('#indexOf()', () => {
+    it('should return -1 when the value is not present', () => {
+      assert.strictEqual([1, 2, 3].indexOf(4), -1);
+    });
+  });
+});
+```
+
+단정문 작성을 위해 `assert` 모듈을 가져온 뒤, `describe()` 메서드로 테스트 수트를 만들고, `it()` 메서드로 테스트 케이스를 만든다. 그리고, 단정문을 작성하여 결과를 검증한다. 간단히 부가설명을 하자면, 외부의 테스트 수트는 넓은 범위의 테스트 목적이라고 볼 수 있고, 내부의 테스트 수트는 보다 구체적인 느낌의 테스트 소제목이라고 할 수 있다. 이어서 테스트 케이스는 실제로 검증해야 하는 가장 구체적인 테스트 내용이 자리한다. 코드에서 볼 수 있듯 각 메서드의 첫 번째 파라미터는 해당 규모의 테스트가 진행되는 목적을 설명하고 있다.
+
+테스트 코드를 실행하기 위해 터미널에 `npm test`를 입력하면, 아래와 같은 테스트 결과가 출력되는 것을 볼 수 있다.
+
+```shell
+> with-tdd@1.0.0 test /Users/jeongsooyoung/Desktop/etc/node-with-tdd
+> mocha
+
+
+
+  Array
+    #indexOf()
+      ✓ should return -1 when the value is not present
+
+
+  1 passing (3ms)
+```
