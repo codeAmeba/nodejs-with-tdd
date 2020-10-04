@@ -509,3 +509,40 @@ describe('Array', () => {
 
   1 passing (3ms)
 ```
+
+그리고, `strictEqual()`의 두 번째 파라미터에는 기대값이 들어가는데, 이 곳의 값을 -1이 아닌 1로 변경한 뒤 다시 테스트를 실행해보면 아래와 같이 실패하는 것을 볼 수 있다.
+
+```shell
+> with-tdd@1.0.0 test /Users/jeongsooyoung/Desktop/etc/node-with-tdd
+> mocha
+
+
+
+  Array
+    #indexOf()
+      1) should return -1 when the value is not present
+
+
+  0 passing (6ms)
+  1 failing
+
+  1) Array
+       #indexOf()
+         should return -1 when the value is not present:
+
+      AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+-1 !== 1
+
+      + expected - actual
+
+      --1
+      +1
+
+      at Context.<anonymous> (test/test.js:6:14)
+      at processImmediate (internal/timers.js:456:21)
+
+
+
+npm ERR! Test failed.  See above for more details.
+```
