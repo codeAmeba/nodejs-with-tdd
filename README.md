@@ -561,7 +561,7 @@ node_modules/.bin/mocha utils.spec.js
 
 테스트 코드 작성 시 Node.js에서 제공되는 `assert`모듈 대신 서드파티 라이브러리의 사용을 권장하고 있으며, 그 중 하나가 검증(assertion) 라이브러리인 Should.js다.
 
-Should.js는 BDD(Behavior Driven Development) 스타일의 Assertion 라이브러리로써 마치 일반 문장을 읽는 듯 표현적이고 가독성이 뛰어난 것이 특징이다.
+**Should.js는 BDD(Behavior Driven Development) 스타일의 Assertion 라이브러리** 로써 마치 일반 문장을 읽는 듯 표현적이고 가독성이 뛰어난 것이 특징이다.
 
 ```javascript
 const should = require('should');
