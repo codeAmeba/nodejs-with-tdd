@@ -547,7 +547,7 @@ describe('Array', () => {
 npm ERR! Test failed.  See above for more details.
 ```
 
-## test directory
+### test directory
 
 Mocha 공식문서에서는 test 디렉토리를 생성하여 테스트 코드를 이곳에 모아두는 것을 권장하고 있다. 이는 테스트의 편의성을 위함인데, 이렇게 했을 때 `npm test` 명령어만으로도 Mocha가 알아서 테스트 코드를 찾아 실행할 수 있기 때문이다.
 
