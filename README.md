@@ -643,7 +643,7 @@ module.exports = app;
 const app = require('../index');
 const request = require('supertest');
 
-describe('GET .users is', () => {
+describe('GET /users is', () => {
   it('...', (done) => {
     request(app)
       .get('/users')
