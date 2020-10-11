@@ -1,5 +1,5 @@
 const should = require('should');
-const utils = require('../utils');
+const utils = require('./utils');
 
 describe("utils.js module's capitalize() is...", () => {
   it('capitalize first letter of string', () => {

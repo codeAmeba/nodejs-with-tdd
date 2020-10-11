@@ -580,3 +580,108 @@ describe("utils.js module's capitalize() is...", () => {
 
 - [should.js : node.js에서 사용할 수 있는 BDD 스타일의 Assertion 모듈](https://blog.outsider.ne.kr/774)
 - [Should.js github](https://github.com/tj/should.js/)
+
+## superTest
+
+위의 테스트들은 함수의 기능을 테스트하는 **단위 테스트(Unit Test)** 였지만, superTest를 통해 진행하는 테스트는 **API의 기능을 테스트하는 통합 테스트(Integration Test)** 다.
+superTest는 익스프레스 통합 테스트용 라이브러리로써 내부적으로 익스프레스 서버를 구동시켜 실제 요청을 보낸 뒤 결과를 검증한다.
+
+```javascript
+// example
+const request = require('supertest');
+const express = require('express');
+
+const app = express();
+
+app.get('/user', function (req, res) {
+  res.status(200).json({ name: 'john' });
+});
+
+request(app)
+  .get('/user')
+  .expect('Content-Type', /json/)
+  .expect('Content-Length', '15')
+  .expect(200)
+  .end(function (err, res) {
+    if (err) throw err;
+  });
+```
+
+### superTest로 API 테스트 해보기
+
+앞에서 만들었던 `/users` API가 제대로 작동하는 지 테스트할 수 있는 테스트 코드를 superTest로 만들어보자.
+
+```javascript
+// index.js
+const express = require('express');
+const app = express();
+const morgan = require('morgan');
+
+const users = [
+  { id: 1, name: 'Tom' },
+  { id: 2, name: 'Jane' },
+  { id: 3, name: 'Mike' },
+];
+
+app.use(morgan('dev'));
+
+app.get('/users', (req, res) => {
+  res.json(users);
+});
+
+app.listen(3000, () => {
+  console.log('server start');
+});
+
+module.exports = app;
+```
+
+기존의 `index.js`에서 크게 달라진 부분은 없으나, 테스트가 진행되는 `index.spec.js`에서 불러와야 하기 때문에 위와 같이 `app`을 모듈로써 export 한다.
+
+```javascript
+// index.spec.js
+const app = require('../index');
+const request = require('supertest');
+
+describe('GET .users is', () => {
+  it('...', (done) => {
+    request(app)
+      .get('/users')
+      .end((err, res) => {
+        console.log(res.body);
+        done();
+      });
+  });
+});
+```
+
+그리고, `index.spec.js`에 `index.js`와 `supertest`를 불러온 뒤 테스트 코드를 작성한다. 단위 테스트를 작성할 때와 다른 점이라면, `supertest` 모듈을 할당한 `request` 함수를 사용하며, 요청 형식(METHOD)가 체이닝 된다는 것이다. 그리고 요청 후 응답값이 `end()` 메서드의 인자로 들어온다.
+
+또한, Node.js로 만든 서버는 비동기로 동작하기 때문에 테스트 코드 역시 비동기 처리를 해줘야 하는데, 의외로 간단하다. `it()` 함수의 두 번째 파라미터로 들어오는 콜백함수의 인자로 `done`을 넣어주고, 처리가 끝나는 마지막에 `done()`을 호출해주면 이것으로 비동기 처리가 끝난다.
+
+`npm test`를 실행해보면 아래와 같이 서버를 실행하고 데이터를 요청한 뒤 받아오는 것을 볼 수 있다.
+
+```shell
+> with-tdd@1.0.0 test /Users/jeongsooyoung/Desktop/etc/node-with-tdd
+> mocha
+
+server start
+
+
+  GET .users is
+GET /users 200 1.639 ms - 69
+[
+  { id: 1, name: 'Tom' },
+  { id: 2, name: 'Jane' },
+  { id: 3, name: 'Mike' }
+]
+    ✓ ...
+
+
+  1 passing (19ms)
+```
+
+**참고:**
+
+- [superTest](https://github.com/visionmedia/supertest)
+- [Node.js로 만든 API 테스트(supertest)](https://jeonghwan-kim.github.io/dev/2020/05/25/supertest.html)
