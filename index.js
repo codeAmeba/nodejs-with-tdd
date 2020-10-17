@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const users = [
   { id: 1, name: 'Tom' },
   { id: 2, name: 'Jane' },
-  { id: 3, name: 'Mike' },
+  { id: 3, name: 'Mike' }
 ];
 
 app.use(morgan('dev'));
