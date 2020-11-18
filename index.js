@@ -19,9 +19,13 @@ app.get('/users', (req, res) => {
   res.json(users.slice(0, limit));
 });
 
-app.get('/users/:id', function (req, res) {
+app.get('/users/:id', (req, res) => {
   const id = parseInt(req.params.id, 10);
+  if (Number.isNaN(is)) return res.status(400).end();
+
   const user = users.filter(user => user.id === id)[0];
+  if (!user) return res.status(404).end();
+
   res.json(user);
 });
 

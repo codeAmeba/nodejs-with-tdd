@@ -46,4 +46,25 @@ describe('GET /users/1 is...', () => {
         });
     });
   });
+
+  describe('실패시', () => {
+    it('id가 숫자가 아닐 경우 400 응답', done => {
+      request(app)
+        .get('/users/one')
+        .expect(400)
+        .end((err, res) => {
+          console.log(res.status);
+          done();
+        });
+    });
+    it('id로 유저를 찾을 수 없을 경우 404 응답', done => {
+      request(app)
+        .get('/users/999')
+        .expect(404)
+        .end((err, res) => {
+          console.log(res.status);
+          done();
+        });
+    });
+  });
 });
